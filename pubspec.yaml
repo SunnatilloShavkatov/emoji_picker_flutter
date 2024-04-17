@@ -26,5 +26,3 @@ flutter:
       android:
         package: com.fintasys.emoji_picker_flutter
         pluginClass: EmojiPickerFlutterPlugin
-      ios:
-        pluginClass: EmojiPickerFlutterPlugin

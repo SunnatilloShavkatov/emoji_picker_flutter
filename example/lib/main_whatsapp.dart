@@ -66,191 +66,180 @@ class MyAppState extends State<MyApp> {
             ),
           ),
           body: SafeArea(
-            child: Stack(
+            child: Column(
               children: [
-                Image.asset(
-                  'assets/whatsapp_bg.png',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  opacity: const AlwaysStoppedAnimation(0.7),
-                  fit: BoxFit.fill,
+                Expanded(
+                  child: Center(
+                    child: ValueListenableBuilder(
+                      valueListenable: _controller,
+                      builder: (context, text, child) {
+                        return RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                            ),
+                            children: _utils.setEmojiTextStyle(
+                              _controller.text,
+                              emojiStyle: _textStyle,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-                Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: ValueListenableBuilder(
-                          valueListenable: _controller,
-                          builder: (context, text, child) {
-                            return RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18.0,
-                                ),
-                                children: _utils.setEmojiTextStyle(
-                                  _controller.text,
-                                  emojiStyle: _textStyle,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 48.0,
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 4.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 4.0,
-                              ),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _emojiShowing = !_emojiShowing;
-                                        if (!_emojiShowing) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            _focusNode.requestFocus();
-                                          });
-                                        } else {
-                                          _focusNode.unfocus();
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      _emojiShowing
-                                          ? Icons.keyboard
-                                          : Icons.emoji_emotions_outlined,
-                                      color: secondaryColor,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _controller,
-                                      scrollController: _scrollController,
-                                      focusNode: _focusNode,
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black87,
-                                      ),
-                                      maxLines: 1,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Type a message',
-                                        hintStyle: TextStyle(
-                                            color: secondaryColor,
-                                            fontWeight: FontWeight.normal),
-                                        border: InputBorder.none,
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                Container(
+                  height: 48.0,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 4.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 4.0,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
                             ),
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(right: 4.0),
-                            child: CircleAvatar(
-                              backgroundColor: accentColor,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.send,
-                                  size: 20.0,
-                                  color: Colors.white,
-                                ),
+                          child: Row(
+                            children: [
+                              IconButton(
                                 onPressed: () {
-                                  // send message
+                                  setState(() {
+                                    _emojiShowing = !_emojiShowing;
+                                    if (!_emojiShowing) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        _focusNode.requestFocus();
+                                      });
+                                    } else {
+                                      _focusNode.unfocus();
+                                    }
+                                  });
                                 },
+                                icon: Icon(
+                                  _emojiShowing
+                                      ? Icons.keyboard
+                                      : Icons.emoji_emotions_outlined,
+                                  color: secondaryColor,
+                                ),
                               ),
-                            ),
+                              Expanded(
+                                child: TextField(
+                                  controller: _controller,
+                                  scrollController: _scrollController,
+                                  focusNode: _focusNode,
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.black87,
+                                  ),
+                                  maxLines: 1,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Type a message',
+                                    hintStyle: TextStyle(
+                                        color: secondaryColor,
+                                        fontWeight: FontWeight.normal),
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.zero,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                    Offstage(
-                      offstage: !_emojiShowing,
-                      child: EmojiPicker(
-                        textEditingController: _controller,
-                        scrollController: _scrollController,
-                        config: Config(
-                          height: 256,
-                          checkPlatformCompatibility: true,
-                          emojiTextStyle: _textStyle,
-                          emojiViewConfig: const EmojiViewConfig(
-                            backgroundColor: Colors.white,
-                          ),
-                          swapCategoryAndBottomBar: true,
-                          skinToneConfig: const SkinToneConfig(),
-                          categoryViewConfig: CategoryViewConfig(
-                            backgroundColor: Colors.white,
-                            dividerColor: Colors.white,
-                            indicatorColor: accentColor,
-                            iconColorSelected: Colors.black,
-                            iconColor: secondaryColor,
-                            customCategoryView: (
-                              config,
-                              state,
-                              tabController,
-                              pageController,
-                            ) {
-                              return WhatsAppCategoryView(
-                                config,
-                                state,
-                                tabController,
-                                pageController,
-                              );
-                            },
-                            categoryIcons: const CategoryIcons(
-                              recentIcon: Icons.access_time_outlined,
-                              smileyIcon: Icons.emoji_emotions_outlined,
-                              animalIcon: Icons.cruelty_free_outlined,
-                              foodIcon: Icons.coffee_outlined,
-                              activityIcon: Icons.sports_soccer_outlined,
-                              travelIcon: Icons.directions_car_filled_outlined,
-                              objectIcon: Icons.lightbulb_outline,
-                              symbolIcon: Icons.emoji_symbols_outlined,
-                              flagIcon: Icons.flag_outlined,
+                      Container(
+                        margin: const EdgeInsets.only(right: 4.0),
+                        child: CircleAvatar(
+                          backgroundColor: accentColor,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.send,
+                              size: 20.0,
+                              color: Colors.white,
                             ),
-                          ),
-                          bottomActionBarConfig: const BottomActionBarConfig(
-                            backgroundColor: Colors.white,
-                            buttonColor: Colors.white,
-                            buttonIconColor: secondaryColor,
-                          ),
-                          searchViewConfig: SearchViewConfig(
-                            backgroundColor: Colors.white,
-                            customSearchView: (
-                              config,
-                              state,
-                              showEmojiView,
-                            ) {
-                              return WhatsAppSearchView(
-                                config,
-                                state,
-                                showEmojiView,
-                              );
+                            onPressed: () {
+                              // send message
                             },
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Offstage(
+                  offstage: !_emojiShowing,
+                  child: EmojiPicker(
+                    textEditingController: _controller,
+                    scrollController: _scrollController,
+                    config: Config(
+                      height: 256,
+                      checkPlatformCompatibility: true,
+                      emojiTextStyle: _textStyle,
+                      emojiViewConfig: const EmojiViewConfig(
+                        backgroundColor: Colors.white,
+                      ),
+                      swapCategoryAndBottomBar: true,
+                      skinToneConfig: const SkinToneConfig(),
+                      categoryViewConfig: CategoryViewConfig(
+                        backgroundColor: Colors.white,
+                        dividerColor: Colors.white,
+                        indicatorColor: accentColor,
+                        iconColorSelected: Colors.black,
+                        iconColor: secondaryColor,
+                        customCategoryView: (
+                          config,
+                          state,
+                          tabController,
+                          pageController,
+                        ) {
+                          return WhatsAppCategoryView(
+                            config,
+                            state,
+                            tabController,
+                            pageController,
+                          );
+                        },
+                        categoryIcons: const CategoryIcons(
+                          recentIcon: Icons.access_time_outlined,
+                          smileyIcon: Icons.emoji_emotions_outlined,
+                          animalIcon: Icons.cruelty_free_outlined,
+                          foodIcon: Icons.coffee_outlined,
+                          activityIcon: Icons.sports_soccer_outlined,
+                          travelIcon: Icons.directions_car_filled_outlined,
+                          objectIcon: Icons.lightbulb_outline,
+                          symbolIcon: Icons.emoji_symbols_outlined,
+                          flagIcon: Icons.flag_outlined,
+                        ),
+                      ),
+                      bottomActionBarConfig: const BottomActionBarConfig(
+                        backgroundColor: Colors.white,
+                        buttonColor: Colors.white,
+                        buttonIconColor: secondaryColor,
+                      ),
+                      searchViewConfig: SearchViewConfig(
+                        backgroundColor: Colors.white,
+                        customSearchView: (
+                          config,
+                          state,
+                          showEmojiView,
+                        ) {
+                          return WhatsAppSearchView(
+                            config,
+                            state,
+                            showEmojiView,
+                          );
+                        },
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),

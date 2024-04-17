@@ -1,7 +1,6 @@
 package com.fintasys.emoji_picker_flutter
 
 import android.graphics.Paint
-import androidx.annotation.NonNull
 import androidx.core.graphics.PaintCompat
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -16,14 +15,14 @@ class EmojiPickerFlutterPlugin : FlutterPlugin, MethodCallHandler {
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
-    val paint = Paint()
+    private val paint = Paint()
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "emoji_picker_flutter")
         channel.setMethodCallHandler(this)
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             /// returns list of boolean values that corresponds to the `source` list lenght
             /// each value indicates whether the `source` emoji is supported on the platform
@@ -34,13 +33,14 @@ class EmojiPickerFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 }
                 result.success(supportedList)
             }
+
             else -> {
                 result.notImplemented()
             }
         }
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 }

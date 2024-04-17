@@ -1,12 +1,15 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Default Bottom Action Bar implementation
 class DefaultBottomActionBar extends BottomActionBar {
   /// Constructor
-  DefaultBottomActionBar(
-      Config config, EmojiViewState state, VoidCallback showSearchView)
-      : super(config, state, showSearchView);
+  const DefaultBottomActionBar(
+    super.config,
+    super.state,
+    super.showSearchView, {
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _DefaultBottomActionBarState();
@@ -14,18 +17,16 @@ class DefaultBottomActionBar extends BottomActionBar {
 
 class _DefaultBottomActionBarState extends State<DefaultBottomActionBar> {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: widget.config.bottomActionBarConfig.backgroundColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildSearchViewButton(),
-          _buildBackspaceButton(),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Container(
+        color: widget.config.bottomActionBarConfig.backgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _buildSearchViewButton(),
+            _buildBackspaceButton(),
+          ],
+        ),
+      );
 
   Widget _buildSearchViewButton() {
     if (widget.config.bottomActionBarConfig.showSearchViewButton) {

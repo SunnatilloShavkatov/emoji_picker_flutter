@@ -1,7 +1,7 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Callback function for custom view
 typedef EmojiViewBuilder = Widget Function(
@@ -11,13 +11,14 @@ typedef EmojiViewBuilder = Widget Function(
 );
 
 /// Default Widget if no recent is available
-const DefaultNoRecentsWidget = Text(
-  'No Recents',
+const Text DefaultNoRecentsWidget = Text(
+  "No Recents",
   style: TextStyle(fontSize: 20, color: Colors.black26),
   textAlign: TextAlign.center,
 );
 
 /// Emoji View Config
+@immutable
 class EmojiViewConfig {
   /// Constructor
   const EmojiViewConfig({
@@ -72,28 +73,25 @@ class EmojiViewConfig {
 
   /// Get Emoji size based on properties and screen width
   double getEmojiSize(double width) {
-    final maxSize = width / columns;
+    final double maxSize = width / columns;
     return min(maxSize, emojiSizeMax);
   }
 
   /// Get Emoji hitbox size based on properties and screen width
-  double getEmojiBoxSize(double width) {
-    return width / columns;
-  }
+  double getEmojiBoxSize(double width) => width / columns;
 
   @override
-  bool operator ==(other) {
-    return (other is EmojiViewConfig) &&
-        other.columns == columns &&
-        other.emojiSizeMax == emojiSizeMax &&
-        other.backgroundColor == backgroundColor &&
-        other.verticalSpacing == verticalSpacing &&
-        other.horizontalSpacing == horizontalSpacing &&
-        other.recentsLimit == recentsLimit &&
-        other.buttonMode == buttonMode &&
-        other.gridPadding == gridPadding &&
-        other.replaceEmojiOnLimitExceed == replaceEmojiOnLimitExceed;
-  }
+  bool operator ==(Object other) =>
+      (other is EmojiViewConfig) &&
+      other.columns == columns &&
+      other.emojiSizeMax == emojiSizeMax &&
+      other.backgroundColor == backgroundColor &&
+      other.verticalSpacing == verticalSpacing &&
+      other.horizontalSpacing == horizontalSpacing &&
+      other.recentsLimit == recentsLimit &&
+      other.buttonMode == buttonMode &&
+      other.gridPadding == gridPadding &&
+      other.replaceEmojiOnLimitExceed == replaceEmojiOnLimitExceed;
 
   @override
   int get hashCode =>

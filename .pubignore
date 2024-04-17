@@ -26,4 +26,5 @@
 
 build/
 pubspec.lock
-.github
+example
+.github/

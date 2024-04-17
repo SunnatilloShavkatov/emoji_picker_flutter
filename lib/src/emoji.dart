@@ -1,10 +1,18 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// A class to store data for each individual emoji
 @immutable
 class Emoji {
   /// Emoji constructor
   const Emoji(this.emoji, this.name, {this.hasSkinTone = false});
+
+  /// Parse Emoji from json
+  factory Emoji.fromJson(Map<String, dynamic> json) => Emoji(
+        json["emoji"] as String,
+        json["name"] as String,
+        hasSkinTone:
+            json["hasSkinTone"] != null ? json["hasSkinTone"] as bool : false,
+      );
 
   /// The unicode string for this emoji
   ///
@@ -18,35 +26,19 @@ class Emoji {
   final bool hasSkinTone;
 
   @override
-  String toString() {
-    return 'Emoji: $emoji, Name: $name, HasSkinTone: $hasSkinTone';
-  }
-
-  /// Parse Emoji from json
-  static Emoji fromJson(Map<String, dynamic> json) {
-    return Emoji(
-      json['emoji'] as String,
-      json['name'] as String,
-      hasSkinTone:
-          json['hasSkinTone'] != null ? json['hasSkinTone'] as bool : false,
-    );
-  }
+  String toString() => "Emoji: $emoji, Name: $name, HasSkinTone: $hasSkinTone";
 
   ///  Encode Emoji to json
-  Map<String, dynamic> toJson() {
-    return {
-      'emoji': emoji,
-      'name': name,
-      'hasSkinTone': hasSkinTone,
-    };
-  }
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "emoji": emoji,
+        "name": name,
+        "hasSkinTone": hasSkinTone,
+      };
 
   /// Copy method
-  Emoji copyWith({String? name, String? emoji, bool? hasSkinTone}) {
-    return Emoji(
-      emoji ?? this.emoji,
-      name ?? this.name,
-      hasSkinTone: hasSkinTone ?? this.hasSkinTone,
-    );
-  }
+  Emoji copyWith({String? name, String? emoji, bool? hasSkinTone}) => Emoji(
+        emoji ?? this.emoji,
+        name ?? this.name,
+        hasSkinTone: hasSkinTone ?? this.hasSkinTone,
+      );
 }

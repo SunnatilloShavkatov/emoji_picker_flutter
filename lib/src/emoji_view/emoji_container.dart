@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/src/emoji_picker.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/src/emoji_picker.dart";
+import "package:flutter/material.dart";
 
 /// A wrapper around a grid or list of emojis.
 /// If the button style is Cupertino or None, this is just wrapping the
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 /// touch response for individual InkWell cells.
 class EmojiContainer extends StatelessWidget {
   /// Constructor
-  const EmojiContainer({
+  const EmojiContainer({super.key, 
     required this.color,
     required this.buttonMode,
     this.padding,

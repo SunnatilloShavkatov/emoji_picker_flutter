@@ -1,15 +1,14 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/widgets.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/widgets.dart";
 
 /// Default delimiter for regex
-const delimiter = '|';
+const String delimiter = "|";
 
 /// Text editing controller that produces text spans on the fly for setting
 /// a particular style to emoji characters.
 class EmojiTextEditingController extends TextEditingController {
   /// Constructor, requres emojiStyle, since otherwise this class has no effect
-  EmojiTextEditingController({String? text, required this.emojiTextStyle})
-      : super(text: text);
+  EmojiTextEditingController({super.text, required this.emojiTextStyle});
 
   /// The style used for the emoji characters
   final TextStyle emojiTextStyle;
@@ -23,18 +22,19 @@ class EmojiTextEditingController extends TextEditingController {
     TextStyle? style,
     required bool withComposing,
   }) {
-    assert(!value.composing.isValid ||
-        !withComposing ||
-        value.isComposingRangeValid);
+    assert(
+      !value.composing.isValid || !withComposing || value.isComposingRangeValid,
+      "The composing range is out of range for the current text.",
+    );
     // If the composing range is out of range for the current text, ignore it to
     // preserve the tree integrity, otherwise in release mode a RangeError will
     // be thrown and this EditableText will be built with a broken subtree.
-    final composingRegionOutOfRange =
+    final bool composingRegionOutOfRange =
         !value.isComposingRangeValid || !withComposing;
 
     // Style when no cursor or selection is set
     if (composingRegionOutOfRange) {
-      final textSpanChildren = utils.setEmojiTextStyle(
+      final List<InlineSpan> textSpanChildren = utils.setEmojiTextStyle(
         text,
         emojiStyle: emojiTextStyle,
         parentStyle: style,
@@ -43,7 +43,7 @@ class EmojiTextEditingController extends TextEditingController {
     }
 
     // Cursor will automatically highlight current word underlined
-    final underlineStyle =
+    final TextStyle underlineStyle =
         style?.merge(const TextStyle(decoration: TextDecoration.underline)) ??
             const TextStyle(decoration: TextDecoration.underline);
 

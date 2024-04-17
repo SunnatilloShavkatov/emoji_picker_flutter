@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Template class for custom implementation
 abstract class BottomActionBar extends StatefulWidget {
@@ -8,8 +8,8 @@ abstract class BottomActionBar extends StatefulWidget {
     this.config,
     this.state,
     this.showSearchView, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Config for customizations
   final Config config;

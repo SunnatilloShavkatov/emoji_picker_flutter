@@ -1,16 +1,16 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Default category view
 class DefaultCategoryView extends CategoryView {
   /// Constructor
-  DefaultCategoryView(
-    Config config,
-    EmojiViewState state,
-    TabController tabController,
-    PageController pageController, {
-    Key? key,
-  }) : super(config, state, tabController, pageController, key: key);
+  const DefaultCategoryView(
+    super.config,
+    super.state,
+    super.tabController,
+    super.pageController, {
+    super.key,
+  });
 
   @override
   DefaultCategoryViewState createState() => DefaultCategoryViewState();
@@ -19,11 +19,10 @@ class DefaultCategoryView extends CategoryView {
 /// Default Category View State
 class DefaultCategoryViewState extends CategoryViewState {
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => ColoredBox(
       color: widget.config.categoryViewConfig.backgroundColor,
       child: Row(
-        children: [
+        children: <Widget>[
           Expanded(
             child: DefaultCategoryTabBar(
               widget.config,
@@ -37,7 +36,6 @@ class DefaultCategoryViewState extends CategoryViewState {
         ],
       ),
     );
-  }
 
   Widget _buildBackspaceButton() {
     if (widget.config.categoryViewConfig.showBackspaceButton) {

@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Callback function for custom search view
 typedef SearchViewBuilder = Widget Function(
@@ -9,13 +9,14 @@ typedef SearchViewBuilder = Widget Function(
 );
 
 /// Search view Config
+@immutable
 class SearchViewConfig {
   /// Constructor
   const SearchViewConfig({
     this.backgroundColor = const Color(0xFFEBEFF2),
     this.buttonColor = Colors.transparent,
     this.buttonIconColor = Colors.black26,
-    this.hintText = 'Search',
+    this.hintText = "Search",
     this.customSearchView,
   });
 
@@ -36,13 +37,12 @@ class SearchViewConfig {
   final SearchViewBuilder? customSearchView;
 
   @override
-  bool operator ==(other) {
-    return (other is SearchViewConfig) &&
-        other.backgroundColor == backgroundColor &&
-        other.buttonColor == buttonColor &&
-        other.buttonIconColor == buttonIconColor &&
-        other.hintText == hintText;
-  }
+  bool operator ==(Object other) =>
+      (other is SearchViewConfig) &&
+      other.backgroundColor == backgroundColor &&
+      other.buttonColor == buttonColor &&
+      other.buttonIconColor == buttonIconColor &&
+      other.hintText == hintText;
 
   @override
   int get hashCode =>

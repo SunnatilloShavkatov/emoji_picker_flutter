@@ -1,14 +1,14 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Backspace Button Widget
 class BackspaceButton extends StatefulWidget {
   /// Constructor
   const BackspaceButton(this.config, this.onBackspacePressed,
       this.onBackspaceLongPressed, this.iconColor,
-      {super.key});
+      {super.key,});
 
   /// Config
   final Config config;
@@ -30,8 +30,7 @@ class _BackspaceButtonState extends State<BackspaceButton> {
   Timer? _onBackspacePressedCallbackTimer;
 
   @override
-  Widget build(BuildContext context) {
-    return Material(
+  Widget build(BuildContext context) => Material(
       type: MaterialType.transparency,
       child: GestureDetector(
         onLongPressStart: (_) => _startOnBackspacePressedCallback(),
@@ -48,7 +47,6 @@ class _BackspaceButtonState extends State<BackspaceButton> {
         ),
       ),
     );
-  }
 
   @override
   void dispose() {
@@ -59,11 +57,11 @@ class _BackspaceButtonState extends State<BackspaceButton> {
   /// Start the callback for long-pressing the backspace button.
   void _startOnBackspacePressedCallback() {
     // Initial callback interval for short presses
-    var callbackInterval = const Duration(milliseconds: 75);
-    var millisecondsSincePressed = 0;
+    Duration callbackInterval = const Duration(milliseconds: 75);
+    int millisecondsSincePressed = 0;
 
     // Callback function executed on each timer tick
-    void _callback(Timer timer) {
+    void callback(Timer timer) {
       // Accumulate elapsed time since the last tick
       millisecondsSincePressed += callbackInterval.inMilliseconds;
 
@@ -77,7 +75,7 @@ class _BackspaceButtonState extends State<BackspaceButton> {
         // interval
         _onBackspacePressedCallbackTimer?.cancel();
         _onBackspacePressedCallbackTimer =
-            Timer.periodic(callbackInterval, _callback);
+            Timer.periodic(callbackInterval, callback);
 
         // Reset the elapsed time for the new interval
         millisecondsSincePressed = 0;
@@ -93,7 +91,7 @@ class _BackspaceButtonState extends State<BackspaceButton> {
 
     // Start the initial timer with the short-press interval
     _onBackspacePressedCallbackTimer =
-        Timer.periodic(callbackInterval, _callback);
+        Timer.periodic(callbackInterval, callback);
   }
 
   /// Stop the callback for long-pressing the backspace button.

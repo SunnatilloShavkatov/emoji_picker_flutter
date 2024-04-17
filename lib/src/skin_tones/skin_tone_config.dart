@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// Skin tone config Config
+@immutable
 class SkinToneConfig {
   /// Constructor
   const SkinToneConfig({
@@ -19,12 +20,11 @@ class SkinToneConfig {
   final Color indicatorColor;
 
   @override
-  bool operator ==(other) {
-    return (other is SkinToneConfig) &&
-        other.enabled == enabled &&
-        other.dialogBackgroundColor == dialogBackgroundColor &&
-        other.indicatorColor == indicatorColor;
-  }
+  bool operator ==(Object other) =>
+      (other is SkinToneConfig) &&
+      other.enabled == enabled &&
+      other.dialogBackgroundColor == dialogBackgroundColor &&
+      other.indicatorColor == indicatorColor;
 
   @override
   int get hashCode =>

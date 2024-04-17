@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Default category tab bar
 class DefaultCategoryTabBar extends StatelessWidget {
@@ -10,8 +10,8 @@ class DefaultCategoryTabBar extends StatelessWidget {
     this.pageController,
     this.categoryEmojis,
     this.closeSkinToneOverlay, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Config
   final Config config;
@@ -29,8 +29,7 @@ class DefaultCategoryTabBar extends StatelessWidget {
   final VoidCallback closeSkinToneOverlay;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       height: config.categoryViewConfig.tabBarHeight,
       child: TabBar(
         labelColor: config.categoryViewConfig.iconColorSelected,
@@ -39,7 +38,7 @@ class DefaultCategoryTabBar extends StatelessWidget {
         dividerColor: config.categoryViewConfig.dividerColor,
         controller: tabController,
         labelPadding: EdgeInsets.zero,
-        onTap: (index) {
+        onTap: (int index) {
           closeSkinToneOverlay();
           pageController.jumpToPage(index);
         },
@@ -47,17 +46,14 @@ class DefaultCategoryTabBar extends StatelessWidget {
             .asMap()
             .entries
             .map<Widget>(
-                (item) => _buildCategoryTab(item.key, item.value.category))
+                (MapEntry<int, CategoryEmoji> item) => _buildCategoryTab(item.key, item.value.category),)
             .toList(),
       ),
     );
-  }
 
-  Widget _buildCategoryTab(int index, Category category) {
-    return Tab(
+  Widget _buildCategoryTab(int index, Category category) => Tab(
       icon: Icon(
         getIconForCategory(config.categoryViewConfig.categoryIcons, category),
       ),
     );
-  }
 }

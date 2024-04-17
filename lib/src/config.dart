@@ -1,10 +1,11 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Number of skin tone icons
-const kSkinToneCount = 6;
+const int kSkinToneCount = 6;
 
 /// Config for customizations
+@immutable
 class Config {
   /// Constructor
   const Config({
@@ -58,17 +59,16 @@ class Config {
   final SearchViewConfig searchViewConfig;
 
   @override
-  bool operator ==(other) {
-    return (other is Config) &&
-        other.swapCategoryAndBottomBar == swapCategoryAndBottomBar &&
-        other.checkPlatformCompatibility == checkPlatformCompatibility &&
-        other.emojiSet == emojiSet &&
-        other.emojiTextStyle == emojiTextStyle &&
-        other.emojiViewConfig == emojiViewConfig &&
-        other.skinToneConfig == skinToneConfig &&
-        other.bottomActionBarConfig == bottomActionBarConfig &&
-        other.searchViewConfig == searchViewConfig;
-  }
+  bool operator ==(Object other) =>
+      (other is Config) &&
+      other.swapCategoryAndBottomBar == swapCategoryAndBottomBar &&
+      other.checkPlatformCompatibility == checkPlatformCompatibility &&
+      other.emojiSet == emojiSet &&
+      other.emojiTextStyle == emojiTextStyle &&
+      other.emojiViewConfig == emojiViewConfig &&
+      other.skinToneConfig == skinToneConfig &&
+      other.bottomActionBarConfig == bottomActionBarConfig &&
+      other.searchViewConfig == searchViewConfig;
 
   @override
   int get hashCode =>

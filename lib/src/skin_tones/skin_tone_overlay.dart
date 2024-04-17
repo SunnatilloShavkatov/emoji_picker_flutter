@@ -1,15 +1,15 @@
-import 'dart:collection';
+import "dart:collection";
 
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Skin tone overlay mixin
 mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
-  final _utils = EmojiPickerUtils();
+  final EmojiPickerUtils _utils = EmojiPickerUtils();
   OverlayEntry? _overlay;
 
   /// Layer links for skin tone overlay
-  final links = HashMap<String, LayerLink>();
+  final HashMap<String, LayerLink> links = HashMap<String, LayerLink>();
 
   /// Add target for skin tone overlay if skin tone is available
   Widget addSkinToneTargetIfAvailable({
@@ -18,7 +18,7 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
     required Widget child,
   }) {
     if (hasSkinTone) {
-      final link = links.putIfAbsent(linkKey, LayerLink.new);
+      final LayerLink link = links.putIfAbsent(linkKey, LayerLink.new);
       return CompositedTransformTarget(
         link: link,
         child: child,
@@ -44,24 +44,24 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
     LayerLink link,
   ) {
     // Generate other skintone options
-    final skinTonesEmoji = SkinTone.values
-        .map((skinTone) => _utils.applySkinTone(emoji, skinTone))
+    final List<Emoji> skinTonesEmoji = SkinTone.values
+        .map((String skinTone) => _utils.applySkinTone(emoji, skinTone))
         .toList();
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final emojiPickerRenderbox = context.findRenderObject() as RenderBox;
-    final emojiBoxSize = config.emojiViewConfig.getEmojiBoxSize(
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final RenderBox emojiPickerRenderbox = context.findRenderObject()! as RenderBox;
+    final double emojiBoxSize = config.emojiViewConfig.getEmojiBoxSize(
       emojiPickerRenderbox.size.width,
     );
-    final left = _calculateLeftOffset(
+    final double left = _calculateLeftOffset(
       emojiBoxSize,
       emojiBoxPosition,
       screenWidth,
     );
-    final top = _calculateTopOffset(emojiBoxSize);
+    final double top = _calculateTopOffset(emojiBoxSize);
 
     _overlay = OverlayEntry(
-      builder: (context) => Positioned(
+      builder: (BuildContext context) => Positioned(
         top: 0,
         left: 0,
         child: CompositedTransformFollower(
@@ -71,12 +71,12 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
           child: TapRegion(
             onTapOutside: (_) => closeSkinToneOverlay(),
             child: Material(
-              elevation: 4.0,
+              elevation: 4,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 color: config.skinToneConfig.dialogBackgroundColor,
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     EmojiCell.fromConfig(
                       emoji: emoji,
                       emojiSize: emojiSize,
@@ -87,7 +87,7 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
                     ),
                     ...List.generate(
                       SkinTone.values.length,
-                      (index) => EmojiCell.fromConfig(
+                      (int index) => EmojiCell.fromConfig(
                         emoji: skinTonesEmoji[index],
                         emojiSize: emojiSize,
                         emojiBoxSize: emojiBoxSize,
@@ -108,13 +108,13 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
     if (_overlay != null) {
       Overlay.of(context).insert(_overlay!);
     } else {
-      throw Exception('Nullable skin tone overlay insert attempt');
+      throw Exception("Nullable skin tone overlay insert attempt");
     }
   }
 
   double _calculateTopOffset(double emojiBoxSize) {
-    final verticalPaddingOverlay = 8.0;
-    final top = -emojiBoxSize - verticalPaddingOverlay;
+    const double verticalPaddingOverlay = 8;
+    final double top = -emojiBoxSize - verticalPaddingOverlay;
     return top;
   }
 
@@ -123,7 +123,7 @@ mixin SkinToneOverlayStateMixin<T extends StatefulWidget> on State<T> {
     Offset emojiBoxPosition,
     double screenWidth,
   ) {
-    var left = -2.5 * emojiBoxSize;
+    double left = -2.5 * emojiBoxSize;
 
     if (emojiBoxPosition.dx - 1 * emojiBoxSize < 0) {
       left += 2.5 * emojiBoxSize;

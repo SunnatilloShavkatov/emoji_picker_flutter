@@ -1,6 +1,6 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
 
 /// A widget that represents an individual clickable emoji cell.
 /// Can have a long pressed listener [onSkinToneDialogRequested] that
@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class EmojiCell extends StatelessWidget {
   /// Constructor for manually setting all properties
   const EmojiCell({
+    super.key,
     required this.emoji,
     required this.emojiSize,
     required this.emojiBoxSize,
@@ -22,15 +23,16 @@ class EmojiCell extends StatelessWidget {
 
   /// Constructor that can retrieve as much information as possible from
   /// [Config]
-  EmojiCell.fromConfig(
-      {required this.emoji,
-      required this.emojiSize,
-      required this.emojiBoxSize,
-      this.categoryEmoji,
-      required this.onEmojiSelected,
-      this.onSkinToneDialogRequested,
-      required Config config})
-      : buttonMode = config.emojiViewConfig.buttonMode,
+  EmojiCell.fromConfig({
+    super.key,
+    required this.emoji,
+    required this.emojiSize,
+    required this.emojiBoxSize,
+    this.categoryEmoji,
+    required this.onEmojiSelected,
+    this.onSkinToneDialogRequested,
+    required Config config,
+  })  : buttonMode = config.emojiViewConfig.buttonMode,
         enableSkinTones = config.skinToneConfig.enabled,
         textStyle = config.emojiTextStyle,
         skinToneIndicatorColor = config.skinToneConfig.indicatorColor;
@@ -69,20 +71,20 @@ class EmojiCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onPressed = () {
+    void onPressed() {
       onEmojiSelected(categoryEmoji?.category, emoji);
-    };
+    }
 
-    final onLongPressed = () {
-      final renderBox = context.findRenderObject() as RenderBox;
-      final emojiBoxPosition = renderBox.localToGlobal(Offset.zero);
+    void onLongPressed() {
+      final RenderBox renderBox = context.findRenderObject()! as RenderBox;
+      final Offset emojiBoxPosition = renderBox.localToGlobal(Offset.zero);
       onSkinToneDialogRequested?.call(
         emojiBoxPosition,
         emoji,
         emojiSize,
         categoryEmoji,
       );
-    };
+    }
 
     return SizedBox(
       width: emojiBoxSize,
@@ -105,13 +107,11 @@ class EmojiCell extends StatelessWidget {
       return MaterialButton(
         onPressed: onPressed,
         onLongPress: onLongPressed,
-        child: child,
         elevation: 0,
         highlightElevation: 0,
         padding: EdgeInsets.zero,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        shape: const RoundedRectangleBorder(),
+        child: child,
       );
     }
     if (buttonMode == ButtonMode.CUPERTINO) {
@@ -121,7 +121,6 @@ class EmojiCell extends StatelessWidget {
           onPressed: onPressed,
           padding: EdgeInsets.zero,
           child: child,
-          alignment: Alignment.center,
         ),
       );
     }
@@ -134,19 +133,19 @@ class EmojiCell extends StatelessWidget {
 
   /// Build and display Emoji centered of its parent
   Widget _buildEmoji() {
-    final emojiText = Text(
+    final Text emojiText = Text(
       emoji.emoji,
-      textScaler: const TextScaler.linear(1.0),
+      textScaler: TextScaler.noScaling,
       style: _getEmojiTextStyle(),
     );
 
     return emoji.hasSkinTone &&
             enableSkinTones &&
             onSkinToneDialogRequested != null
-        ? Container(
+        ? DecoratedBox(
             decoration: TriangleDecoration(
               color: skinToneIndicatorColor,
-              size: 8.0,
+              size: 8,
             ),
             child: emojiText,
           )
@@ -154,7 +153,7 @@ class EmojiCell extends StatelessWidget {
   }
 
   TextStyle _getEmojiTextStyle() {
-    final defaultStyle = DefaultEmojiTextStyle.copyWith(
+    final TextStyle defaultStyle = DefaultEmojiTextStyle.copyWith(
       fontSize: emojiSize,
       inherit: true,
     );

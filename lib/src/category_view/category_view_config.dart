@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Callback function for custom category view
 typedef CategoryViewBuilder = Widget Function(
@@ -10,6 +10,7 @@ typedef CategoryViewBuilder = Widget Function(
 );
 
 /// Category view Config
+@immutable
 class CategoryViewConfig {
   /// Constructor
   const CategoryViewConfig({
@@ -70,21 +71,20 @@ class CategoryViewConfig {
   final CategoryViewBuilder? customCategoryView;
 
   @override
-  bool operator ==(other) {
-    return (other is CategoryViewConfig) &&
-        other.tabBarHeight == tabBarHeight &&
-        other.tabIndicatorAnimDuration == tabIndicatorAnimDuration &&
-        other.initCategory == initCategory &&
-        other.recentTabBehavior == recentTabBehavior &&
-        other.showBackspaceButton == showBackspaceButton &&
-        other.backgroundColor == backgroundColor &&
-        other.indicatorColor == indicatorColor &&
-        other.iconColor == iconColor &&
-        other.iconColorSelected == iconColorSelected &&
-        other.backspaceColor == backspaceColor &&
-        other.dividerColor == dividerColor &&
-        other.categoryIcons == categoryIcons;
-  }
+  bool operator ==(Object other) =>
+      (other is CategoryViewConfig) &&
+      other.tabBarHeight == tabBarHeight &&
+      other.tabIndicatorAnimDuration == tabIndicatorAnimDuration &&
+      other.initCategory == initCategory &&
+      other.recentTabBehavior == recentTabBehavior &&
+      other.showBackspaceButton == showBackspaceButton &&
+      other.backgroundColor == backgroundColor &&
+      other.indicatorColor == indicatorColor &&
+      other.iconColor == iconColor &&
+      other.iconColorSelected == iconColorSelected &&
+      other.backspaceColor == backspaceColor &&
+      other.dividerColor == dividerColor &&
+      other.categoryIcons == categoryIcons;
 
   @override
   int get hashCode =>

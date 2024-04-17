@@ -1,4 +1,4 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
 
 /// Container for Category and their emoji
 class CategoryEmoji {
@@ -12,10 +12,8 @@ class CategoryEmoji {
   final List<Emoji> emoji;
 
   /// Copy method
-  CategoryEmoji copyWith({Category? category, List<Emoji>? emoji}) {
-    return CategoryEmoji(
+  CategoryEmoji copyWith({Category? category, List<Emoji>? emoji}) => CategoryEmoji(
       category ?? this.category,
       emoji ?? this.emoji,
     );
-  }
 }

@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// Emoji text style providing commonly available fallback fonts
-const DefaultEmojiTextStyle = TextStyle(
-  inherit: true,
+const TextStyle DefaultEmojiTextStyle = TextStyle(
   // Commonly available fallback fonts.
-  fontFamilyFallback: [
+  fontFamilyFallback: <String>[
     // iOS and MacOs.
-    'Apple Color Emoji',
+    "Apple Color Emoji",
     // Android, ChromeOS, Ubuntu and some other Linux distros.
-    'Noto Color Emoji',
+    "Noto Color Emoji",
     // Windows.
-    'Segoe UI Emoji',
+    "Segoe UI Emoji",
   ],
 );

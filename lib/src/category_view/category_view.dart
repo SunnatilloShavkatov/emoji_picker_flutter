@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Template class for custom implementation
 /// Inhert this class to create your own Category view
@@ -10,8 +10,8 @@ abstract class CategoryView extends StatefulWidget {
     this.state,
     this.tabController,
     this.pageController, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Config for customizations
   final Config config;
@@ -48,7 +48,7 @@ IconData getIconForCategory(CategoryIcons categoryIcons, Category category) {
     case Category.FLAGS:
       return categoryIcons.flagIcon;
     default:
-      throw Exception('Unsupported Category');
+      throw Exception("Unsupported Category");
   }
 }
 
@@ -58,6 +58,6 @@ class CategoryViewState<T extends CategoryView> extends State<T>
     with SkinToneOverlayStateMixin {
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError('Category View implementation missing');
+    throw UnimplementedError("Category View implementation missing");
   }
 }

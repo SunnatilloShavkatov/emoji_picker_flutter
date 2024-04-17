@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// Decoration that can be used to render a triangle in the bottom-right
 /// corner of a container
 class TriangleDecoration extends Decoration {
   /// Constructor
-  TriangleDecoration({required this.color, required this.size}) : super();
+  const TriangleDecoration({required this.color, required this.size}) : super();
 
   /// Color of the triangle
   final Color color;
@@ -13,9 +13,7 @@ class TriangleDecoration extends Decoration {
   final double size;
 
   @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _TriangleShapePainter(color, size);
-  }
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) => _TriangleShapePainter(color, size);
 }
 
 class _TriangleShapePainter extends BoxPainter {
@@ -36,8 +34,8 @@ class _TriangleShapePainter extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     // per documentation, the size should be always not null here, no need
     // for null checks
-    final s = configuration.size!;
-    var path = Path()
+    final Size s = configuration.size!;
+    final Path path = Path()
       ..moveTo(s.width + offset.dx, s.height - _size + offset.dy)
       ..lineTo(s.width - _size + offset.dx, s.height + offset.dy)
       ..lineTo(s.width + offset.dx, s.height + offset.dy)

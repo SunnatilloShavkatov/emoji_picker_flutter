@@ -1,5 +1,5 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
 
 /// Callback function for custom bottom action bar
 typedef BottomActionBarBuilder = Widget Function(
@@ -9,6 +9,7 @@ typedef BottomActionBarBuilder = Widget Function(
 );
 
 /// Bottom Action Bar Config
+@immutable
 class BottomActionBarConfig {
   /// Constructor
   const BottomActionBarConfig({
@@ -44,15 +45,14 @@ class BottomActionBarConfig {
   final BottomActionBarBuilder? customBottomActionBar;
 
   @override
-  bool operator ==(other) {
-    return (other is BottomActionBarConfig) &&
-        other.enabled == enabled &&
-        other.showBackspaceButton == showBackspaceButton &&
-        other.showSearchViewButton == showSearchViewButton &&
-        other.backgroundColor == backgroundColor &&
-        other.buttonColor == buttonColor &&
-        other.buttonIconColor == buttonIconColor;
-  }
+  bool operator ==(Object other) =>
+      (other is BottomActionBarConfig) &&
+      other.enabled == enabled &&
+      other.showBackspaceButton == showBackspaceButton &&
+      other.showSearchViewButton == showSearchViewButton &&
+      other.backgroundColor == backgroundColor &&
+      other.buttonColor == buttonColor &&
+      other.buttonIconColor == buttonIconColor;
 
   @override
   int get hashCode =>

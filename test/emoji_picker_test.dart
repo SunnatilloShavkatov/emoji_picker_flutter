@@ -1,6 +1,6 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/material.dart";
+import "package:flutter_test/flutter_test.dart";
 
 // Use for golden tests, helpful in debugging
 // await expectLater(
@@ -9,28 +9,27 @@ import 'package:flutter_test/flutter_test.dart';
 // );
 
 void main() {
-  group('EmojiPicker Tests', () {
-    testWidgets('Should allow user to select an emoji',
+  group("EmojiPicker Tests", () {
+    testWidgets("Should allow user to select an emoji",
         (WidgetTester tester) async {
-      final _controller = TextEditingController();
-      Emoji? _emojiSelected;
-      Category? _categorySelected;
+      final TextEditingController controller = TextEditingController();
+      Emoji? emojiSelected;
+      Category? categorySelected;
 
       // Build our app and trigger a frame.
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: EmojiPicker(
-              textEditingController: _controller,
-              onEmojiSelected: (category, emoji) {
-                _emojiSelected = emoji;
-                _categorySelected = category;
+              textEditingController: controller,
+              onEmojiSelected: (Category? category, Emoji emoji) {
+                emojiSelected = emoji;
+                categorySelected = category;
               },
               config: const Config(
-                  height: 256,
                   categoryViewConfig: CategoryViewConfig(
                     recentTabBehavior: RecentTabBehavior.NONE,
-                  )),
+                  ),),
             ),
           ),
         ),
@@ -40,7 +39,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find an emoji in the picker
-      final emoji = find.text('🙂').hitTestable();
+      final Finder emoji = find.text("🙂").hitTestable();
 
       // Verify if we can find the emoji
       expect(emoji, findsOneWidget);
@@ -52,35 +51,35 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check if the emoji is added to the text controller
-      expect(_controller.text, contains('🙂'));
+      expect(controller.text, contains("🙂"));
 
       // Check if the emoji been passed to the 'onEmojiSelected' callback
       expect(
-          _emojiSelected, equals(const Emoji('🙂', 'Slightly Smiling Face')));
+          emojiSelected, equals(const Emoji("🙂", "Slightly Smiling Face")),);
 
       // Check if the category been passed to the 'onEmojiSelected' callback
-      expect(_categorySelected, equals(Category.SMILEYS));
+      expect(categorySelected, equals(Category.SMILEYS));
     });
 
-    testWidgets('Should allow to select an emoji with skintone on longPress',
+    testWidgets("Should allow to select an emoji with skintone on longPress",
         (WidgetTester tester) async {
-      final _controller = TextEditingController();
-      final _utils = EmojiPickerUtils();
-      final emoji = const Emoji('👍', 'Thumbs Up', hasSkinTone: true);
-      Emoji? _emojiSelected;
-      Category? _categorySelected;
+      final TextEditingController controller = TextEditingController();
+      final EmojiPickerUtils utils = EmojiPickerUtils();
+      const Emoji emoji = Emoji("👍", "Thumbs Up", hasSkinTone: true);
+      Emoji? emojiSelected;
+      Category? categorySelected;
 
       // Build our app and trigger a frame.
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: Padding(
-              padding: const EdgeInsets.only(top: 64.0),
+              padding: const EdgeInsets.only(top: 64),
               child: EmojiPicker(
-                textEditingController: _controller,
-                onEmojiSelected: (category, emoji) {
-                  _emojiSelected = emoji;
-                  _categorySelected = category;
+                textEditingController: controller,
+                onEmojiSelected: (Category? category, Emoji emoji) {
+                  emojiSelected = emoji;
+                  categorySelected = category;
                 },
                 config: const Config(
                   height: 500,
@@ -98,12 +97,12 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find an emoji in the picker
-      final emojiToFind = find.text(emoji.emoji);
+      final Finder emojiToFind = find.text(emoji.emoji);
 
       // Scroll until the emoji to be found appears.
       await tester.dragUntilVisible(
         emojiToFind,
-        find.byKey(const Key('emojiScrollView')),
+        find.byKey(const Key("emojiScrollView")),
         const Offset(0, -300),
       );
 
@@ -118,9 +117,9 @@ void main() {
 
       /// Check if all skin tones are rendered in overlay
       Finder? skinToneVariantToFind;
-      for (var i = 0; i < SkinTone.values.length; i++) {
+      for (int i = 0; i < SkinTone.values.length; i++) {
         skinToneVariantToFind =
-            find.text(_utils.applySkinTone(emoji, SkinTone.values[i]).emoji);
+            find.text(utils.applySkinTone(emoji, SkinTone.values[i]).emoji);
         // Verify if we can find the skintone variant
         expect(skinToneVariantToFind, findsOneWidget);
       }
@@ -129,15 +128,15 @@ void main() {
       await tester.tap(skinToneVariantToFind!);
 
       // Check if the emoji is added to the text controller
-      expect(_controller.text, contains('👍🏿'));
+      expect(controller.text, contains("👍🏿"));
 
       // Check if the emoji been passed to the 'onEmojiSelected' callback
-      expect(_emojiSelected?.emoji, equals('👍🏿'));
-      expect(_emojiSelected?.name, equals('Thumbs Up'));
-      expect(_emojiSelected?.hasSkinTone, equals(true));
+      expect(emojiSelected?.emoji, equals("👍🏿"));
+      expect(emojiSelected?.name, equals("Thumbs Up"));
+      expect(emojiSelected?.hasSkinTone, equals(true));
 
       // Check if the category been passed to the 'onEmojiSelected' callback
-      expect(_categorySelected, equals(Category.SMILEYS));
+      expect(categorySelected, equals(Category.SMILEYS));
     });
   });
 }

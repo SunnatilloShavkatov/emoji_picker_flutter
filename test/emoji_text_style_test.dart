@@ -26,7 +26,7 @@ void main() {
             expect(result[1].style?.color, Colors.red);
             expect(
               result[1].style?.fontFamilyFallback,
-              DefaultEmojiTextStyle.fontFamilyFallback,
+              defaultEmojiTextStyle.fontFamilyFallback,
             );
             // World
             expect(result[2].style?.color, Colors.black);

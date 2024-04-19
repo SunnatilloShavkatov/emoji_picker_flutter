@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+@immutable
 class CategoryIcon {
   /// Icon of Category
   const CategoryIcon({
@@ -16,4 +17,14 @@ class CategoryIcon {
 
   /// The color of the icon once the category is selected
   final Color selectedColor;
+
+  @override
+  bool operator ==(Object other) =>
+      (other is CategoryIcon) &&
+      other.icon == icon &&
+      other.color == color &&
+      other.selectedColor == selectedColor;
+
+  @override
+  int get hashCode => icon.hashCode ^ color.hashCode ^ selectedColor.hashCode;
 }

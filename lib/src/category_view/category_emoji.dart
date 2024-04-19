@@ -12,8 +12,9 @@ class CategoryEmoji {
   final List<Emoji> emoji;
 
   /// Copy method
-  CategoryEmoji copyWith({Category? category, List<Emoji>? emoji}) => CategoryEmoji(
-      category ?? this.category,
-      emoji ?? this.emoji,
-    );
+  CategoryEmoji copyWith({Category? category, List<Emoji>? emoji}) =>
+      CategoryEmoji(
+        category ?? this.category,
+        emoji ?? this.emoji,
+      );
 }

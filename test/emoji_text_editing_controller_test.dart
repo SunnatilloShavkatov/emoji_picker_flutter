@@ -27,7 +27,7 @@ void main() {
             // Emoji
             expect(span.children?[1].style?.color, Colors.red);
             expect(span.children?[1].style?.fontFamilyFallback,
-                DefaultEmojiTextStyle.fontFamilyFallback,);
+                defaultEmojiTextStyle.fontFamilyFallback,);
             // World
             expect(span.children?[2].style?.color, Colors.black);
 

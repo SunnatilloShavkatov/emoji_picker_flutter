@@ -9,31 +9,31 @@ import "package:flutter/material.dart";
 /// All [Category] are shown in the category bar
 enum Category {
   /// Recent / Popular emojis
-  RECENT,
+  recent,
 
   /// Smiley emojis
-  SMILEYS,
+  smileys,
 
   /// Animal emojis
-  ANIMALS,
+  animals,
 
   /// Food emojis
-  FOODS,
+  foods,
 
   /// Activity emojis
-  ACTIVITIES,
+  activities,
 
   /// Travel emojis
-  TRAVEL,
+  travel,
 
   /// Ojects emojis
-  OBJECTS,
+  objects,
 
   /// Sumbol emojis
-  SYMBOLS,
+  symbols,
 
   /// Flag emojis
-  FLAGS,
+  flags,
 }
 
 /// Extension on Category enum to get its name
@@ -41,23 +41,23 @@ extension CategoryExtension on Category {
   /// Returns name of Category
   String get name {
     switch (this) {
-      case Category.RECENT:
+      case Category.recent:
         return "recent";
-      case Category.SMILEYS:
+      case Category.smileys:
         return "smileys";
-      case Category.ANIMALS:
+      case Category.animals:
         return "animals";
-      case Category.FOODS:
+      case Category.foods:
         return "foods";
-      case Category.ACTIVITIES:
+      case Category.activities:
         return "activities";
-      case Category.TRAVEL:
+      case Category.travel:
         return "travel";
-      case Category.OBJECTS:
+      case Category.objects:
         return "objects";
-      case Category.SYMBOLS:
+      case Category.symbols:
         return "symbols";
-      case Category.FLAGS:
+      case Category.flags:
         return "flags";
     }
   }
@@ -67,13 +67,13 @@ extension CategoryExtension on Category {
 enum ButtonMode {
   /// No cell touch effects, uses GestureDetector only. Provides best grid
   /// scrolling performance
-  NONE,
+  none,
 
   /// Android button style - gives the button a splash color with ripple effect
-  MATERIAL,
+  material,
 
   /// iOS button style - gives the button a fade out effect when pressed
-  CUPERTINO
+  cupertino
 }
 
 /// Callback function for when emoji is selected
@@ -164,10 +164,12 @@ class EmojiPickerState extends State<EmojiPicker> {
   }) {
     _recentEmoji = recentEmoji;
     final int recentTabIndex = _categoryEmoji.indexWhere(
-        (CategoryEmoji element) => element.category == Category.RECENT);
+      (CategoryEmoji element) => element.category == Category.recent,
+    );
     if (recentTabIndex != -1) {
       _categoryEmoji[recentTabIndex] = _categoryEmoji[recentTabIndex].copyWith(
-          emoji: _recentEmoji.map((RecentEmoji e) => e.emoji).toList());
+        emoji: _recentEmoji.map((RecentEmoji e) => e.emoji).toList(),
+      );
       if (mounted && refresh) {
         setState(() {});
       }
@@ -304,7 +306,7 @@ class EmojiPickerState extends State<EmojiPicker> {
   // Add recent emoji handling to tap listener
   void _onEmojiSelected(Category? category, Emoji emoji) {
     if (widget.config.categoryViewConfig.recentTabBehavior ==
-        RecentTabBehavior.POPULAR) {
+        RecentTabBehavior.popular) {
       _emojiPickerInternalUtils
           .addEmojiToPopularUsed(emoji: emoji, config: widget.config)
           .then(
@@ -314,12 +316,12 @@ class EmojiPickerState extends State<EmojiPicker> {
               // is based on the use frequency
               updateRecentEmoji(
                 newRecentEmoji,
-                refresh: category != Category.RECENT,
+                refresh: category != Category.recent,
               ),
             },
           );
     } else if (widget.config.categoryViewConfig.recentTabBehavior ==
-        RecentTabBehavior.RECENT) {
+        RecentTabBehavior.recent) {
       _emojiPickerInternalUtils
           .addEmojiToRecentlyUsed(emoji: emoji, config: widget.config)
           .then(
@@ -329,7 +331,7 @@ class EmojiPickerState extends State<EmojiPicker> {
               // is based on the use frequency
               updateRecentEmoji(
                 newRecentEmoji,
-                refresh: category != Category.RECENT,
+                refresh: category != Category.recent,
               ),
             },
           );
@@ -375,12 +377,12 @@ class EmojiPickerState extends State<EmojiPicker> {
   Future<void> _updateEmojis() async {
     _emojiPickerInternalUtils = await EmojiPickerInternalUtils.getInstance();
     _categoryEmoji.clear();
-    if (<RecentTabBehavior>[RecentTabBehavior.RECENT, RecentTabBehavior.POPULAR]
+    if (<RecentTabBehavior>[RecentTabBehavior.recent, RecentTabBehavior.popular]
         .contains(widget.config.categoryViewConfig.recentTabBehavior)) {
       _recentEmoji = await _emojiPickerInternalUtils.getRecentEmojis();
       final List<Emoji> recentEmojiMap =
           _recentEmoji.map((RecentEmoji e) => e.emoji).toList();
-      _categoryEmoji.add(CategoryEmoji(Category.RECENT, recentEmojiMap));
+      _categoryEmoji.add(CategoryEmoji(Category.recent, recentEmojiMap));
     }
     final List<CategoryEmoji> data = widget.config.emojiSet;
     _categoryEmoji.addAll(

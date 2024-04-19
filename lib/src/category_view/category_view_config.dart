@@ -16,8 +16,8 @@ class CategoryViewConfig {
   const CategoryViewConfig({
     this.tabBarHeight = 46.0,
     this.tabIndicatorAnimDuration = kTabScrollDuration,
-    this.initCategory = Category.RECENT,
-    this.recentTabBehavior = RecentTabBehavior.RECENT,
+    this.initCategory = Category.recent,
+    this.recentTabBehavior = RecentTabBehavior.recent,
     this.showBackspaceButton = false,
     this.backgroundColor = const Color(0xFFEBEFF2),
     this.indicatorColor = Colors.blue,

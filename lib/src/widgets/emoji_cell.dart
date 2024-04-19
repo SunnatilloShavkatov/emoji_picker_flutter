@@ -103,7 +103,7 @@ class EmojiCell extends StatelessWidget {
     VoidCallback? onLongPressed,
     required Widget child,
   }) {
-    if (buttonMode == ButtonMode.MATERIAL) {
+    if (buttonMode == ButtonMode.material) {
       return MaterialButton(
         onPressed: onPressed,
         onLongPress: onLongPressed,
@@ -114,7 +114,7 @@ class EmojiCell extends StatelessWidget {
         child: child,
       );
     }
-    if (buttonMode == ButtonMode.CUPERTINO) {
+    if (buttonMode == ButtonMode.cupertino) {
       return GestureDetector(
         onLongPress: onLongPressed,
         child: CupertinoButton(
@@ -153,7 +153,7 @@ class EmojiCell extends StatelessWidget {
   }
 
   TextStyle _getEmojiTextStyle() {
-    final TextStyle defaultStyle = DefaultEmojiTextStyle.copyWith(
+    final TextStyle defaultStyle = defaultEmojiTextStyle.copyWith(
       fontSize: emojiSize,
       inherit: true,
     );

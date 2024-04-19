@@ -10,8 +10,7 @@ class Emoji {
   factory Emoji.fromJson(Map<String, dynamic> json) => Emoji(
         json["emoji"] as String,
         json["name"] as String,
-        hasSkinTone:
-            json["hasSkinTone"] != null ? json["hasSkinTone"] as bool : false,
+        hasSkinTone: json["hasSkinTone"] ?? false,
       );
 
   /// The unicode string for this emoji

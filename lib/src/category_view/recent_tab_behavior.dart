@@ -1,11 +1,11 @@
 /// Behavior of Recent Tab
 enum RecentTabBehavior {
   /// Don't show Recent Tab
-  NONE,
+  none,
 
   /// Display the last used emoji at the top of the list
-  RECENT,
+  recent,
 
   /// Display the most often used emoji at the top of the list
-  POPULAR,
+  popular,
 }

@@ -16,7 +16,9 @@ class DefaultEmojiPickerView extends EmojiPickerView {
 }
 
 class _DefaultEmojiPickerViewState extends State<DefaultEmojiPickerView>
-    with SingleTickerProviderStateMixin, SkinToneOverlayStateMixin {
+    with
+        SingleTickerProviderStateMixin,
+        SkinToneOverlayStateMixin<DefaultEmojiPickerView> {
   late TabController _tabController;
   late PageController _pageController;
   final ScrollController _scrollController = ScrollController();
@@ -138,7 +140,7 @@ class _DefaultEmojiPickerViewState extends State<DefaultEmojiPickerView>
     CategoryEmoji categoryEmoji,
   ) {
     // Display notice if recent has no entries yet
-    if (categoryEmoji.category == Category.RECENT &&
+    if (categoryEmoji.category == Category.recent &&
         categoryEmoji.emoji.isEmpty) {
       return _buildNoRecent();
     }

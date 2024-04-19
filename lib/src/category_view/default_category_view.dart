@@ -17,25 +17,25 @@ class DefaultCategoryView extends CategoryView {
 }
 
 /// Default Category View State
-class DefaultCategoryViewState extends CategoryViewState {
+class DefaultCategoryViewState extends CategoryViewState<DefaultCategoryView> {
   @override
   Widget build(BuildContext context) => ColoredBox(
-      color: widget.config.categoryViewConfig.backgroundColor,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: DefaultCategoryTabBar(
-              widget.config,
-              widget.tabController,
-              widget.pageController,
-              widget.state.categoryEmoji,
-              closeSkinToneOverlay,
+        color: widget.config.categoryViewConfig.backgroundColor,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: DefaultCategoryTabBar(
+                widget.config,
+                widget.tabController,
+                widget.pageController,
+                widget.state.categoryEmoji,
+                closeSkinToneOverlay,
+              ),
             ),
-          ),
-          _buildBackspaceButton(),
-        ],
-      ),
-    );
+            _buildBackspaceButton(),
+          ],
+        ),
+      );
 
   Widget _buildBackspaceButton() {
     if (widget.config.categoryViewConfig.showBackspaceButton) {

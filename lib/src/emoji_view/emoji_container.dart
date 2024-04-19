@@ -29,7 +29,7 @@ class EmojiContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (buttonMode == ButtonMode.MATERIAL) {
+    if (buttonMode == ButtonMode.material) {
       return Material(
         color: color,
         child: padding == null

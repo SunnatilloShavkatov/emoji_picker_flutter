@@ -29,26 +29,24 @@ abstract class CategoryView extends StatefulWidget {
 /// Returns the icon for the category
 IconData getIconForCategory(CategoryIcons categoryIcons, Category category) {
   switch (category) {
-    case Category.RECENT:
+    case Category.recent:
       return categoryIcons.recentIcon;
-    case Category.SMILEYS:
+    case Category.smileys:
       return categoryIcons.smileyIcon;
-    case Category.ANIMALS:
+    case Category.animals:
       return categoryIcons.animalIcon;
-    case Category.FOODS:
+    case Category.foods:
       return categoryIcons.foodIcon;
-    case Category.TRAVEL:
+    case Category.travel:
       return categoryIcons.travelIcon;
-    case Category.ACTIVITIES:
+    case Category.activities:
       return categoryIcons.activityIcon;
-    case Category.OBJECTS:
+    case Category.objects:
       return categoryIcons.objectIcon;
-    case Category.SYMBOLS:
+    case Category.symbols:
       return categoryIcons.symbolIcon;
-    case Category.FLAGS:
+    case Category.flags:
       return categoryIcons.flagIcon;
-    default:
-      throw Exception("Unsupported Category");
   }
 }
 

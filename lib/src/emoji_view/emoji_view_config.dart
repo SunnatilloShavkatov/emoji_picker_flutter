@@ -11,8 +11,8 @@ typedef EmojiViewBuilder = Widget Function(
 );
 
 /// Default Widget if no recent is available
-const Text DefaultNoRecentsWidget = Text(
-  "No Recents",
+const Text defaultNoRecentWidget = Text(
+  "No Recent",
   style: TextStyle(fontSize: 20, color: Colors.black26),
   textAlign: TextAlign.center,
 );
@@ -30,9 +30,9 @@ class EmojiViewConfig {
     this.gridPadding = EdgeInsets.zero,
     this.recentsLimit = 28,
     this.replaceEmojiOnLimitExceed = false,
-    this.noRecents = DefaultNoRecentsWidget,
+    this.noRecents = defaultNoRecentWidget,
     this.loadingIndicator = const SizedBox.shrink(),
-    this.buttonMode = ButtonMode.MATERIAL,
+    this.buttonMode = ButtonMode.material,
   });
 
   /// Number of emojis per row

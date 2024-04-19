@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 /// Emoji text style providing commonly available fallback fonts
-const TextStyle DefaultEmojiTextStyle = TextStyle(
+const TextStyle defaultEmojiTextStyle = TextStyle(
   // Commonly available fallback fonts.
   fontFamilyFallback: <String>[
     // iOS and MacOs.

@@ -28,7 +28,7 @@ void main() {
               },
               config: const Config(
                   categoryViewConfig: CategoryViewConfig(
-                    recentTabBehavior: RecentTabBehavior.NONE,
+                    recentTabBehavior: RecentTabBehavior.none,
                   ),),
             ),
           ),
@@ -58,7 +58,7 @@ void main() {
           emojiSelected, equals(const Emoji("🙂", "Slightly Smiling Face")),);
 
       // Check if the category been passed to the 'onEmojiSelected' callback
-      expect(categorySelected, equals(Category.SMILEYS));
+      expect(categorySelected, equals(Category.smileys));
     });
 
     testWidgets("Should allow to select an emoji with skintone on longPress",
@@ -84,7 +84,7 @@ void main() {
                 config: const Config(
                   height: 500,
                   categoryViewConfig: CategoryViewConfig(
-                    recentTabBehavior: RecentTabBehavior.NONE,
+                    recentTabBehavior: RecentTabBehavior.none,
                   ),
                 ),
               ),
@@ -136,7 +136,7 @@ void main() {
       expect(emojiSelected?.hasSkinTone, equals(true));
 
       // Check if the category been passed to the 'onEmojiSelected' callback
-      expect(categorySelected, equals(Category.SMILEYS));
+      expect(categorySelected, equals(Category.smileys));
     });
   });
 }

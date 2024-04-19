@@ -30,30 +30,32 @@ class DefaultCategoryTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-      height: config.categoryViewConfig.tabBarHeight,
-      child: TabBar(
-        labelColor: config.categoryViewConfig.iconColorSelected,
-        indicatorColor: config.categoryViewConfig.indicatorColor,
-        unselectedLabelColor: config.categoryViewConfig.iconColor,
-        dividerColor: config.categoryViewConfig.dividerColor,
-        controller: tabController,
-        labelPadding: EdgeInsets.zero,
-        onTap: (int index) {
-          closeSkinToneOverlay();
-          pageController.jumpToPage(index);
-        },
-        tabs: categoryEmojis
-            .asMap()
-            .entries
-            .map<Widget>(
-                (MapEntry<int, CategoryEmoji> item) => _buildCategoryTab(item.key, item.value.category),)
-            .toList(),
-      ),
-    );
+        height: config.categoryViewConfig.tabBarHeight,
+        child: TabBar(
+          labelColor: config.categoryViewConfig.iconColorSelected,
+          indicatorColor: config.categoryViewConfig.indicatorColor,
+          unselectedLabelColor: config.categoryViewConfig.iconColor,
+          dividerColor: config.categoryViewConfig.dividerColor,
+          controller: tabController,
+          labelPadding: EdgeInsets.zero,
+          onTap: (int index) {
+            closeSkinToneOverlay();
+            pageController.jumpToPage(index);
+          },
+          tabs: categoryEmojis
+              .asMap()
+              .entries
+              .map<Widget>(
+                (MapEntry<int, CategoryEmoji> item) =>
+                    _buildCategoryTab(item.key, item.value.category),
+              )
+              .toList(),
+        ),
+      );
 
   Widget _buildCategoryTab(int index, Category category) => Tab(
-      icon: Icon(
-        getIconForCategory(config.categoryViewConfig.categoryIcons, category),
-      ),
-    );
+        icon: Icon(
+          getIconForCategory(config.categoryViewConfig.categoryIcons, category),
+        ),
+      );
 }

@@ -40,7 +40,7 @@ class EmojiPickerUtils {
           await EmojiPickerInternalUtils.getInstance();
 
       final List<CategoryEmoji> data = <CategoryEmoji>[...emojiSet]
-        ..removeWhere((CategoryEmoji e) => e.category == Category.RECENT);
+        ..removeWhere((CategoryEmoji e) => e.category == Category.recent);
       final List<CategoryEmoji> availableCategoryEmoji =
           checkPlatformCompatibility
               ? await emojiPickerInternalUtils.filterUnsupported(data)
@@ -85,7 +85,7 @@ class EmojiPickerUtils {
     TextStyle? parentStyle,
   }) {
     final TextStyle composedEmojiStyle = (parentStyle ?? const TextStyle())
-        .merge(DefaultEmojiTextStyle)
+        .merge(defaultEmojiTextStyle)
         .merge(emojiStyle);
 
     final List<TextSpan> spans = <TextSpan>[];
@@ -122,7 +122,7 @@ class EmojiPickerUtils {
           final String lastText = spans[lastIndex].text ?? "";
           final String currentText = text.substring(match.start, match.end);
           spans[lastIndex] = TextSpan(
-            text: '$lastText$currentText',
+            text: "$lastText$currentText",
             style: composedEmojiStyle,
           );
         }

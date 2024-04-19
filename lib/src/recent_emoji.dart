@@ -6,6 +6,7 @@ import "package:emoji_picker_flutter/src/emoji.dart";
 /// Recent Emoji has an instance of the emoji
 /// And a counter, which counts how often this emoji
 /// has been used before
+
 class RecentEmoji {
   /// Constructor
   RecentEmoji(this.emoji, this.counter);

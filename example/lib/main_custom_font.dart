@@ -27,7 +27,7 @@ class MyAppState extends State<MyApp> {
   void initState() {
     final fontSize = 24 * (isApple ? 1.2 : 1.0);
     // 1. Define Custom Font & Text Style
-    _textStyle = DefaultEmojiTextStyle.copyWith(
+    _textStyle = defaultEmojiTextStyle.copyWith(
       fontFamily: GoogleFonts.notoEmoji().fontFamily,
       fontSize: fontSize,
     );

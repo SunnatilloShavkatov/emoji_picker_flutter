@@ -3,6 +3,7 @@ import "dart:io";
 import "dart:math";
 
 import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/services.dart";
 import "package:hive/hive.dart";
 import "package:path_provider/path_provider.dart";
@@ -168,7 +169,9 @@ late Box<dynamic> _box;
 
 Future<void> _initHive() async {
   const String boxName = "emoji_picker_flutter";
-  final Directory directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
+  if (!kIsWeb) {
+    final Directory directory = await getApplicationCacheDirectory();
+    Hive.init(directory.path);
+  }
   _box = await Hive.openBox<dynamic>(boxName);
 }
